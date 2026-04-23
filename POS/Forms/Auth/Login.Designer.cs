@@ -41,6 +41,7 @@
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             btnContinue = new Guna.UI2.WinForms.Guna2Button();
+            lblpinlogin = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
@@ -58,6 +59,7 @@
             // guna2GroupBox1
             // 
             guna2GroupBox1.Controls.Add(btnContinue);
+            guna2GroupBox1.Controls.Add(lblpinlogin);
             guna2GroupBox1.Controls.Add(guna2HtmlLabel3);
             guna2GroupBox1.Controls.Add(guna2HtmlLabel2);
             guna2GroupBox1.Controls.Add(txtPassword);
@@ -71,7 +73,7 @@
             guna2GroupBox1.Location = new Point(0, 0);
             guna2GroupBox1.Name = "guna2GroupBox1";
             guna2GroupBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2GroupBox1.Size = new Size(436, 295);
+            guna2GroupBox1.Size = new Size(436, 320);
             guna2GroupBox1.TabIndex = 0;
             guna2GroupBox1.Text = "Login";
             // 
@@ -96,6 +98,19 @@
             btnContinue.TabIndex = 5;
             btnContinue.Text = "Continue";
             btnContinue.Click += btnContinue_Click;
+            // 
+            // lblpinlogin
+            // 
+            lblpinlogin.BackColor = Color.Transparent;
+            lblpinlogin.Cursor = Cursors.Hand;
+            lblpinlogin.Font = new Font("Courier New", 9F, FontStyle.Underline);
+            lblpinlogin.ForeColor = SystemColors.GrayText;
+            lblpinlogin.Location = new Point(165, 277);
+            lblpinlogin.Name = "lblpinlogin";
+            lblpinlogin.Size = new Size(101, 17);
+            lblpinlogin.TabIndex = 7;
+            lblpinlogin.Text = "Login with PIN";
+            lblpinlogin.Click += lblpinlogin_Click;
             // 
             // guna2HtmlLabel3
             // 
@@ -177,7 +192,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(436, 295);
+            ClientSize = new Size(436, 320);
             Controls.Add(guna2GroupBox1);
             Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
@@ -199,5 +214,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblClose;
         private Guna.UI2.WinForms.Guna2Button btnContinue;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblpinlogin;
     }
 }

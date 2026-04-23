@@ -1,6 +1,6 @@
 ﻿namespace POS.Forms.Auth
 {
-    partial class PinForm
+    partial class PinLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -58,9 +58,9 @@
             guna2GroupBox1.Location = new Point(0, 0);
             guna2GroupBox1.Name = "guna2GroupBox1";
             guna2GroupBox1.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2GroupBox1.Size = new Size(438, 199);
-            guna2GroupBox1.TabIndex = 1;
-            guna2GroupBox1.Text = "Authentication";
+            guna2GroupBox1.Size = new Size(450, 202);
+            guna2GroupBox1.TabIndex = 2;
+            guna2GroupBox1.Text = "Login";
             // 
             // btnContinue
             // 
@@ -82,7 +82,6 @@
             btnContinue.Size = new Size(381, 48);
             btnContinue.TabIndex = 5;
             btnContinue.Text = "Continue";
-            btnContinue.Click += btnContinue_Click;
             // 
             // guna2HtmlLabel2
             // 
@@ -133,15 +132,15 @@
             guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
-            // PinForm
+            // PinLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(438, 199);
+            ClientSize = new Size(450, 202);
             Controls.Add(guna2GroupBox1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "PinForm";
-            Text = "PinForm";
+            Name = "PinLogin";
+            Text = "PinLogin";
             guna2GroupBox1.ResumeLayout(false);
             guna2GroupBox1.PerformLayout();
             ResumeLayout(false);
