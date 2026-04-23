@@ -70,6 +70,32 @@ namespace POS.Repository
             return transactions;
         }
 
+        public List<(string Name, int Quantity, double UnitPrice)> GetOrderItems(int transactionId)
+        {
+            var items = new List<(string Name, int Quantity, double UnitPrice)>();
+
+            using var conn = DatabaseManager.GetConnection();
+            conn.Open();
+
+            string query = @"
+                SELECT P.Name, OD.Quantity, OD.UnitPrice
+                FROM OrderDetails OD
+                INNER JOIN Products P ON P.ProductId = OD.ProductID
+                WHERE OD.TransactionID = @TransactionID
+            ";
+
+            using var cmd = new SQLiteCommand(query, conn);
+            cmd.Parameters.AddWithValue("@TransactionID", transactionId);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                items.Add((reader.GetString(0), reader.GetInt32(1), reader.GetDouble(2)));
+            }
+
+            return items;
+        }
+
         public List<Transactions> GetFiltered(DateTime fromDate, DateTime toDate, string search)
         {
             var transactions = new List<Transactions>();
