@@ -1,4 +1,5 @@
-﻿using POS.Repository;
+﻿using POS.Forms.Helper;
+using POS.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,13 +16,16 @@ namespace POS.Forms.Reports
 {
     public partial class Transactions : Form
     {
-        public Transactions()
+        private int _currentUserId;
+
+        public Transactions(int userId)
         {
             InitializeComponent();
             this.KeyPreview = true;
             EnableKeyboardShortcuts();
             dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTransactions.CellClick += DgvTransactions_CellClick;
+            _currentUserId = userId;
         }
 
         private void EnableKeyboardShortcuts()
@@ -169,6 +173,17 @@ namespace POS.Forms.Reports
         {
             if (e.RowIndex < 0) return;
             if (dgvTransactions.Columns[e.ColumnIndex].Name != "PrintReceipt") return;
+
+            // PIN auth required for non-admin users
+            var userRepo = new UserRepository();
+            var currentUser = userRepo.GetUserById(_currentUserId);
+
+            if (currentUser?.Role != "Admin")
+            {
+                using var pinForm = new PinForm();
+                if (pinForm.ShowDialog() != DialogResult.OK || !pinForm.IsAuthorized)
+                    return;
+            }
 
             var row = dgvTransactions.Rows[e.RowIndex];
             int transactionId = Convert.ToInt32(row.Cells["TransactionID"].Value);

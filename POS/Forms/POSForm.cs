@@ -320,7 +320,7 @@ namespace POS.Forms
 
         private void guna2Button6_Click(object sender, EventArgs e)
         {
-            var transactions = new POS.Forms.Reports.Transactions();
+            var transactions = new POS.Forms.Reports.Transactions(UserId);
             this.Hide();
             var result = transactions.ShowDialog();
 
