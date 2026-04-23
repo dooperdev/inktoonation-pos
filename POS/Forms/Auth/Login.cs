@@ -36,6 +36,14 @@ namespace POS.Forms.Auth
             };
         }
 
+        private void lblpinlogin_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var pinLogin = new PinForm();
+            pinLogin.ShowDialog();
+            this.Show();
+        }
+
         private void btnContinue_Click(object sender, EventArgs e)
         {
             try

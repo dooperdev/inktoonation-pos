@@ -82,6 +82,7 @@
             btnContinue.Size = new Size(381, 48);
             btnContinue.TabIndex = 5;
             btnContinue.Text = "Continue";
+            btnContinue.Click += btnContinue_Click;
             // 
             // guna2HtmlLabel2
             // 

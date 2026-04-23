@@ -28,7 +28,25 @@ namespace POS.Repository
             if (result != null)
                 return Convert.ToInt32(result);
 
-            return null; // login failed
+            return null;
+        }
+
+        public int? LoginByPin(string pin)
+        {
+            using var conn = DatabaseManager.GetConnection();
+            conn.Open();
+
+            string query = "SELECT UserId FROM Users WHERE Pin = @Pin";
+
+            using var cmd = new SQLiteCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Pin", pin);
+
+            var result = cmd.ExecuteScalar();
+
+            if (result != null)
+                return Convert.ToInt32(result);
+
+            return null;
         }
     }
 }
