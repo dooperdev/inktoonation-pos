@@ -18,6 +18,18 @@ namespace POS.Forms.Users
             InitializeComponent();
             this.KeyPreview = true;
             EnableKeyboardShortcuts();
+
+            // Mask PIN column — display *** while keeping real value in DataBoundItem
+            dgvUsers.CellFormatting += (s, e) =>
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0
+                    && dgvUsers.Columns[e.ColumnIndex].Name == "Pin"
+                    && e.Value != null)
+                {
+                    e.Value = "***";
+                    e.FormattingApplied = true;
+                }
+            };
         }
 
         private void EnableKeyboardShortcuts()
@@ -75,10 +87,21 @@ namespace POS.Forms.Users
             dgvUsers.Columns["Role"].DataPropertyName = "Role";
             dgvUsers.Columns["Role"].Width = 200;
 
-            // Add Pin column
+            // Add Pin column (displays *** via CellFormatting)
             dgvUsers.Columns.Add("Pin", "Pin");
             dgvUsers.Columns["Pin"].DataPropertyName = "Pin";
-            dgvUsers.Columns["Pin"].Width = 200;
+            dgvUsers.Columns["Pin"].Width = 100;
+
+            // View PIN button
+            DataGridViewImageColumn viewPinCol = new DataGridViewImageColumn();
+            viewPinCol.Name = "ViewPin";
+            viewPinCol.HeaderText = "";
+            viewPinCol.Image = Properties.Resources.eye;
+            viewPinCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            viewPinCol.Width = 30;
+            viewPinCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            viewPinCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvUsers.Columns.Add(viewPinCol);
 
             // Add Edit button column
             DataGridViewImageColumn editCol = new DataGridViewImageColumn();
@@ -127,6 +150,16 @@ namespace POS.Forms.Users
 
             int id = Convert.ToInt32(dgvUsers.Rows[e.RowIndex].Cells["UserId"].Value);
             userId = id;
+
+            // VIEW PIN CLICK
+            if (dgvUsers.Columns[e.ColumnIndex].Name == "ViewPin")
+            {
+                var user = dgvUsers.Rows[e.RowIndex].DataBoundItem as POS.Models.Users;
+                if (user != null)
+                    MessageBox.Show($"PIN: {user.Pin}", "User PIN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             // EDIT CLICK
             if (dgvUsers.Columns[e.ColumnIndex].Name == "Edit")
             {
@@ -136,7 +169,8 @@ namespace POS.Forms.Users
                 edit.txtUsername.Text = dgvUsers.Rows[e.RowIndex].Cells["Username"].Value.ToString();
                 edit.txtPassword.Text = dgvUsers.Rows[e.RowIndex].Cells["Password"].Value.ToString();
                 edit.cmbRole.Text = dgvUsers.Rows[e.RowIndex].Cells["Role"].Value.ToString();
-                edit.txtPin.Text = dgvUsers.Rows[e.RowIndex].Cells["Pin"].Value.ToString();
+                var boundUser = dgvUsers.Rows[e.RowIndex].DataBoundItem as POS.Models.Users;
+                edit.txtPin.Text = boundUser?.Pin ?? "";
                 var result = edit.ShowDialog();
 
                 if (result == DialogResult.OK)

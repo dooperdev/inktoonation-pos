@@ -193,17 +193,7 @@ namespace POS.Forms.Reports
 
             if (colName == "PrintReceipt")
             {
-                // PIN auth required for non-admin users
-                var userRepo = new UserRepository();
-                var currentUser = userRepo.GetUserById(_currentUserId);
-
-                if (currentUser?.Role != "Admin")
-                {
-                    using var pinForm = new PinForm();
-                    if (pinForm.ShowDialog() != DialogResult.OK || !pinForm.IsAuthorized)
-                        return;
-                }
-
+                if (!AuthorizeAction()) return;
                 PrintTransactionReceipt(transactionId, transactionNumber, cashier, customer, totalAmount, paymentType, transactionDate);
             }
         }
@@ -343,8 +333,20 @@ namespace POS.Forms.Reports
             return _transactionRepo.GetFiltered(fromDate, toDate, search);
         }
 
+        private bool AuthorizeAction()
+        {
+            var userRepo = new UserRepository();
+            var currentUser = userRepo.GetUserById(_currentUserId);
+            if (currentUser?.Role == "Admin") return true;
+
+            using var pinForm = new PinForm();
+            return pinForm.ShowDialog() == DialogResult.OK && pinForm.IsAuthorized;
+        }
+
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            if (!AuthorizeAction()) return;
+
             var data = GetFilteredData();
             if (data.Count == 0)
             {
@@ -455,6 +457,8 @@ namespace POS.Forms.Reports
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            if (!AuthorizeAction()) return;
+
             var data = GetFilteredData();
             if (data.Count == 0)
             {
