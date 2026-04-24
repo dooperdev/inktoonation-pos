@@ -107,15 +107,14 @@ namespace POS.Forms.Reports
             viewCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dgvTransactions.Columns.Add(viewCol);
 
-            // PRINT BUTTON (fixed size)
-            DataGridViewButtonColumn printCol = new DataGridViewButtonColumn();
+            // PRINT BUTTON (image icon)
+            DataGridViewImageColumn printCol = new DataGridViewImageColumn();
             printCol.Name = "PrintReceipt";
             printCol.HeaderText = "";
-            printCol.Text = "Print";
-            printCol.UseColumnTextForButtonValue = true;
-            printCol.Width = 55;
+            printCol.Image = Properties.Resources.printer;
+            printCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            printCol.Width = 40;
             printCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            printCol.FlatStyle = FlatStyle.Flat;
             dgvTransactions.Columns.Add(printCol);
 
             dgvTransactions.RowTemplate.Height = 25;
@@ -173,18 +172,8 @@ namespace POS.Forms.Reports
         private void DgvTransactions_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            if (dgvTransactions.Columns[e.ColumnIndex].Name != "PrintReceipt") return;
 
-            // PIN auth required for non-admin users
-            var userRepo = new UserRepository();
-            var currentUser = userRepo.GetUserById(_currentUserId);
-
-            if (currentUser?.Role != "Admin")
-            {
-                using var pinForm = new PinForm();
-                if (pinForm.ShowDialog() != DialogResult.OK || !pinForm.IsAuthorized)
-                    return;
-            }
+            string colName = dgvTransactions.Columns[e.ColumnIndex].Name;
 
             var row = dgvTransactions.Rows[e.RowIndex];
             int transactionId = Convert.ToInt32(row.Cells["TransactionID"].Value);
@@ -195,7 +184,28 @@ namespace POS.Forms.Reports
             string paymentType = row.Cells["PaymentType"].Value?.ToString() ?? "";
             DateTime transactionDate = Convert.ToDateTime(row.Cells["TransactionDate"].Value);
 
-            PrintTransactionReceipt(transactionId, transactionNumber, cashier, customer, totalAmount, paymentType, transactionDate);
+            if (colName == "View")
+            {
+                using var viewForm = new ViewSaleForm(transactionId, transactionNumber, cashier, customer, totalAmount, paymentType, transactionDate);
+                viewForm.ShowDialog();
+                return;
+            }
+
+            if (colName == "PrintReceipt")
+            {
+                // PIN auth required for non-admin users
+                var userRepo = new UserRepository();
+                var currentUser = userRepo.GetUserById(_currentUserId);
+
+                if (currentUser?.Role != "Admin")
+                {
+                    using var pinForm = new PinForm();
+                    if (pinForm.ShowDialog() != DialogResult.OK || !pinForm.IsAuthorized)
+                        return;
+                }
+
+                PrintTransactionReceipt(transactionId, transactionNumber, cashier, customer, totalAmount, paymentType, transactionDate);
+            }
         }
 
         private void PrintTransactionReceipt(int transactionId, string transactionNumber, string cashier,
