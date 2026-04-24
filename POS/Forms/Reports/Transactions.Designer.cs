@@ -29,24 +29,27 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Transactions));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             btnPrint = new Guna.UI2.WinForms.Guna2Button();
@@ -60,6 +63,8 @@
             txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             lblClose = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlToolTip1 = new Guna.UI2.WinForms.Guna2HtmlToolTip();
+            btnExport = new Guna.UI2.WinForms.Guna2ImageButton();
+            btnPrint = new Guna.UI2.WinForms.Guna2ImageButton();
             guna2GroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).BeginInit();
             SuspendLayout();
@@ -83,13 +88,13 @@
             guna2GroupBox1.Controls.Add(txtSearch);
             guna2GroupBox1.Controls.Add(lblClose);
             guna2GroupBox1.CustomBorderColor = Color.FromArgb(26, 26, 29);
-            guna2GroupBox1.CustomizableEdges = customizableEdges8;
+            guna2GroupBox1.CustomizableEdges = customizableEdges10;
             guna2GroupBox1.Dock = DockStyle.Fill;
             guna2GroupBox1.Font = new Font("Segoe UI", 9F);
             guna2GroupBox1.ForeColor = Color.White;
             guna2GroupBox1.Location = new Point(0, 0);
             guna2GroupBox1.Name = "guna2GroupBox1";
-            guna2GroupBox1.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            guna2GroupBox1.ShadowDecoration.CustomizableEdges = customizableEdges11;
             guna2GroupBox1.Size = new Size(951, 554);
             guna2GroupBox1.TabIndex = 3;
             guna2GroupBox1.Text = "Transactions";
@@ -104,10 +109,10 @@
             btnClearFilter.ImageOffset = new Point(0, 0);
             btnClearFilter.ImageRotate = 0F;
             btnClearFilter.ImageSize = new Size(25, 25);
-            btnClearFilter.Location = new Point(897, 56);
+            btnClearFilter.Location = new Point(806, 56);
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.PressedState.ImageSize = new Size(25, 25);
-            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges1;
+            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges3;
             btnClearFilter.Size = new Size(40, 37);
             btnClearFilter.TabIndex = 16;
             guna2HtmlToolTip1.SetToolTip(btnClearFilter, "Clear Filter");
@@ -165,7 +170,7 @@
             guna2HtmlLabel1.BackColor = Color.Transparent;
             guna2HtmlLabel1.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guna2HtmlLabel1.ForeColor = Color.Black;
-            guna2HtmlLabel1.Location = new Point(642, 66);
+            guna2HtmlLabel1.Location = new Point(551, 66);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(19, 18);
             guna2HtmlLabel1.TabIndex = 15;
@@ -177,7 +182,7 @@
             guna2HtmlLabel2.BackColor = Color.Transparent;
             guna2HtmlLabel2.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guna2HtmlLabel2.ForeColor = Color.Black;
-            guna2HtmlLabel2.Location = new Point(368, 66);
+            guna2HtmlLabel2.Location = new Point(277, 66);
             guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             guna2HtmlLabel2.Size = new Size(35, 18);
             guna2HtmlLabel2.TabIndex = 14;
@@ -187,16 +192,16 @@
             // 
             dtTo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtTo.Checked = true;
-            dtTo.CustomizableEdges = customizableEdges2;
+            dtTo.CustomizableEdges = customizableEdges4;
             dtTo.FillColor = Color.FromArgb(26, 26, 29);
             dtTo.Font = new Font("Segoe UI", 9F);
             dtTo.Format = DateTimePickerFormat.Long;
             dtTo.HoverState.BorderColor = Color.FromArgb(46, 46, 52);
-            dtTo.Location = new Point(667, 56);
+            dtTo.Location = new Point(576, 56);
             dtTo.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             dtTo.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             dtTo.Name = "dtTo";
-            dtTo.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            dtTo.ShadowDecoration.CustomizableEdges = customizableEdges5;
             dtTo.Size = new Size(224, 39);
             dtTo.TabIndex = 13;
             dtTo.Value = new DateTime(2026, 3, 18, 1, 13, 30, 668);
@@ -206,16 +211,16 @@
             // 
             dtFrom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtFrom.Checked = true;
-            dtFrom.CustomizableEdges = customizableEdges4;
+            dtFrom.CustomizableEdges = customizableEdges6;
             dtFrom.FillColor = Color.FromArgb(26, 26, 29);
             dtFrom.Font = new Font("Segoe UI", 9F);
             dtFrom.Format = DateTimePickerFormat.Long;
             dtFrom.HoverState.BorderColor = Color.FromArgb(46, 46, 52);
-            dtFrom.Location = new Point(409, 56);
+            dtFrom.Location = new Point(318, 56);
             dtFrom.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             dtFrom.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             dtFrom.Name = "dtFrom";
-            dtFrom.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            dtFrom.ShadowDecoration.CustomizableEdges = customizableEdges7;
             dtFrom.Size = new Size(227, 39);
             dtFrom.TabIndex = 12;
             dtFrom.Value = new DateTime(2026, 3, 18, 1, 13, 30, 668);
@@ -296,7 +301,7 @@
             // 
             txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSearch.BorderRadius = 5;
-            txtSearch.CustomizableEdges = customizableEdges6;
+            txtSearch.CustomizableEdges = customizableEdges8;
             txtSearch.DefaultText = "";
             txtSearch.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txtSearch.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -313,8 +318,8 @@
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Please enter transaction no.";
             txtSearch.SelectedText = "";
-            txtSearch.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            txtSearch.Size = new Size(348, 39);
+            txtSearch.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            txtSearch.Size = new Size(256, 39);
             txtSearch.TabIndex = 10;
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
@@ -334,6 +339,42 @@
             // 
             guna2HtmlToolTip1.AllowLinksHandling = true;
             guna2HtmlToolTip1.MaximumSize = new Size(0, 0);
+            // 
+            // btnExport
+            // 
+            btnExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnExport.BackColor = Color.White;
+            btnExport.CheckedState.ImageSize = new Size(64, 64);
+            btnExport.HoverState.ImageSize = new Size(25, 25);
+            btnExport.Image = Properties.Resources.excel;
+            btnExport.ImageOffset = new Point(0, 0);
+            btnExport.ImageRotate = 0F;
+            btnExport.ImageSize = new Size(25, 25);
+            btnExport.Location = new Point(897, 56);
+            btnExport.Name = "btnExport";
+            btnExport.PressedState.ImageSize = new Size(25, 25);
+            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnExport.Size = new Size(40, 37);
+            btnExport.TabIndex = 17;
+            guna2HtmlToolTip1.SetToolTip(btnExport, "Clear Filter");
+            // 
+            // btnPrint
+            // 
+            btnPrint.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnPrint.BackColor = Color.White;
+            btnPrint.CheckedState.ImageSize = new Size(64, 64);
+            btnPrint.HoverState.ImageSize = new Size(25, 25);
+            btnPrint.Image = Properties.Resources.printer;
+            btnPrint.ImageOffset = new Point(0, 0);
+            btnPrint.ImageRotate = 0F;
+            btnPrint.ImageSize = new Size(25, 25);
+            btnPrint.Location = new Point(852, 56);
+            btnPrint.Name = "btnPrint";
+            btnPrint.PressedState.ImageSize = new Size(25, 25);
+            btnPrint.ShadowDecoration.CustomizableEdges = customizableEdges1;
+            btnPrint.Size = new Size(40, 37);
+            btnPrint.TabIndex = 18;
+            guna2HtmlToolTip1.SetToolTip(btnPrint, "Clear Filter");
             // 
             // Transactions
             // 
@@ -368,5 +409,7 @@
         private Guna.UI2.WinForms.Guna2HtmlToolTip guna2HtmlToolTip1;
         private Guna.UI2.WinForms.Guna2Button btnPrint;
         private Guna.UI2.WinForms.Guna2Button btnExport;
+        private Guna.UI2.WinForms.Guna2ImageButton btnPrint;
+        private Guna.UI2.WinForms.Guna2ImageButton btnExport;
     }
 }

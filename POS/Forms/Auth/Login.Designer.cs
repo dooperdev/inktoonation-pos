@@ -41,6 +41,7 @@
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             btnContinue = new Guna.UI2.WinForms.Guna2Button();
+            lblpinlogin = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
@@ -97,21 +98,20 @@
             btnContinue.TabIndex = 5;
             btnContinue.Text = "Continue";
             btnContinue.Click += btnContinue_Click;
-            //
+            // 
             // lblpinlogin
-            //
-            lblpinlogin = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            // 
             lblpinlogin.BackColor = Color.Transparent;
             lblpinlogin.Cursor = Cursors.Hand;
             lblpinlogin.Font = new Font("Courier New", 9F, FontStyle.Underline);
-            lblpinlogin.ForeColor = Color.FromArgb(94, 148, 255);
-            lblpinlogin.Location = new Point(143, 282);
+            lblpinlogin.ForeColor = SystemColors.GrayText;
+            lblpinlogin.Location = new Point(165, 277);
             lblpinlogin.Name = "lblpinlogin";
-            lblpinlogin.Size = new Size(150, 17);
+            lblpinlogin.Size = new Size(101, 17);
             lblpinlogin.TabIndex = 7;
             lblpinlogin.Text = "Login with PIN";
             lblpinlogin.Click += lblpinlogin_Click;
-            //
+            // 
             // guna2HtmlLabel3
             // 
             guna2HtmlLabel3.BackColor = Color.Transparent;
