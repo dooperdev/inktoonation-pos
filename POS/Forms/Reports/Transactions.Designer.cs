@@ -29,6 +29,8 @@ namespace POS.Forms.Reports
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -43,8 +45,6 @@ namespace POS.Forms.Reports
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Transactions));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             btnPrint = new Guna.UI2.WinForms.Guna2ImageButton();
@@ -61,15 +61,15 @@ namespace POS.Forms.Reports
             guna2GroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).BeginInit();
             SuspendLayout();
-            //
+            // 
             // guna2BorderlessForm1
-            //
+            // 
             guna2BorderlessForm1.ContainerControl = this;
             guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             guna2BorderlessForm1.TransparentWhileDrag = true;
-            //
+            // 
             // guna2GroupBox1
-            //
+            // 
             guna2GroupBox1.Controls.Add(btnPrint);
             guna2GroupBox1.Controls.Add(btnExport);
             guna2GroupBox1.Controls.Add(btnClearFilter);
@@ -91,47 +91,9 @@ namespace POS.Forms.Reports
             guna2GroupBox1.Size = new Size(951, 554);
             guna2GroupBox1.TabIndex = 3;
             guna2GroupBox1.Text = "Transactions";
-            //
-            // btnClearFilter
-            //
-            btnClearFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnClearFilter.BackColor = Color.White;
-            btnClearFilter.CheckedState.ImageSize = new Size(64, 64);
-            btnClearFilter.HoverState.ImageSize = new Size(25, 25);
-            btnClearFilter.Image = Properties.Resources.clear;
-            btnClearFilter.ImageOffset = new Point(0, 0);
-            btnClearFilter.ImageRotate = 0F;
-            btnClearFilter.ImageSize = new Size(25, 25);
-            btnClearFilter.Location = new Point(806, 56);
-            btnClearFilter.Name = "btnClearFilter";
-            btnClearFilter.PressedState.ImageSize = new Size(25, 25);
-            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            btnClearFilter.Size = new Size(40, 37);
-            btnClearFilter.TabIndex = 16;
-            guna2HtmlToolTip1.SetToolTip(btnClearFilter, "Clear Filter");
-            btnClearFilter.Click += btnClearFilter_Click;
-            //
-            // btnExport
-            //
-            btnExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnExport.BackColor = Color.White;
-            btnExport.CheckedState.ImageSize = new Size(64, 64);
-            btnExport.HoverState.ImageSize = new Size(25, 25);
-            btnExport.Image = Properties.Resources.excel;
-            btnExport.ImageOffset = new Point(0, 0);
-            btnExport.ImageRotate = 0F;
-            btnExport.ImageSize = new Size(25, 25);
-            btnExport.Location = new Point(897, 56);
-            btnExport.Name = "btnExport";
-            btnExport.PressedState.ImageSize = new Size(25, 25);
-            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnExport.Size = new Size(40, 37);
-            btnExport.TabIndex = 17;
-            guna2HtmlToolTip1.SetToolTip(btnExport, "Export to Excel");
-            btnExport.Click += btnExport_Click;
-            //
+            // 
             // btnPrint
-            //
+            // 
             btnPrint.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnPrint.BackColor = Color.White;
             btnPrint.CheckedState.ImageSize = new Size(64, 64);
@@ -148,9 +110,47 @@ namespace POS.Forms.Reports
             btnPrint.TabIndex = 18;
             guna2HtmlToolTip1.SetToolTip(btnPrint, "Print Report");
             btnPrint.Click += btnPrint_Click;
-            //
+            // 
+            // btnExport
+            // 
+            btnExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnExport.BackColor = Color.White;
+            btnExport.CheckedState.ImageSize = new Size(64, 64);
+            btnExport.HoverState.ImageSize = new Size(25, 25);
+            btnExport.Image = Properties.Resources.excel;
+            btnExport.ImageOffset = new Point(0, 0);
+            btnExport.ImageRotate = 0F;
+            btnExport.ImageSize = new Size(25, 25);
+            btnExport.Location = new Point(897, 56);
+            btnExport.Name = "btnExport";
+            btnExport.PressedState.ImageSize = new Size(25, 25);
+            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnExport.Size = new Size(40, 37);
+            btnExport.TabIndex = 17;
+            guna2HtmlToolTip1.SetToolTip(btnExport, "Export to Excel");
+            btnExport.Click += btnExport_Click;
+            // 
+            // btnClearFilter
+            // 
+            btnClearFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnClearFilter.BackColor = Color.White;
+            btnClearFilter.CheckedState.ImageSize = new Size(64, 64);
+            btnClearFilter.HoverState.ImageSize = new Size(25, 25);
+            btnClearFilter.Image = Properties.Resources.clear;
+            btnClearFilter.ImageOffset = new Point(0, 0);
+            btnClearFilter.ImageRotate = 0F;
+            btnClearFilter.ImageSize = new Size(25, 25);
+            btnClearFilter.Location = new Point(806, 56);
+            btnClearFilter.Name = "btnClearFilter";
+            btnClearFilter.PressedState.ImageSize = new Size(25, 25);
+            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            btnClearFilter.Size = new Size(40, 37);
+            btnClearFilter.TabIndex = 16;
+            guna2HtmlToolTip1.SetToolTip(btnClearFilter, "Clear Filter");
+            btnClearFilter.Click += btnClearFilter_Click;
+            // 
             // guna2HtmlLabel1
-            //
+            // 
             guna2HtmlLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             guna2HtmlLabel1.BackColor = Color.Transparent;
             guna2HtmlLabel1.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -160,9 +160,9 @@ namespace POS.Forms.Reports
             guna2HtmlLabel1.Size = new Size(19, 18);
             guna2HtmlLabel1.TabIndex = 15;
             guna2HtmlLabel1.Text = "To";
-            //
+            // 
             // guna2HtmlLabel2
-            //
+            // 
             guna2HtmlLabel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             guna2HtmlLabel2.BackColor = Color.Transparent;
             guna2HtmlLabel2.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -172,9 +172,9 @@ namespace POS.Forms.Reports
             guna2HtmlLabel2.Size = new Size(35, 18);
             guna2HtmlLabel2.TabIndex = 14;
             guna2HtmlLabel2.Text = "From";
-            //
+            // 
             // dtTo
-            //
+            // 
             dtTo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtTo.Checked = true;
             dtTo.CustomizableEdges = customizableEdges4;
@@ -191,9 +191,9 @@ namespace POS.Forms.Reports
             dtTo.TabIndex = 13;
             dtTo.Value = new DateTime(2026, 3, 18, 1, 13, 30, 668);
             dtTo.ValueChanged += dtTo_ValueChanged;
-            //
+            // 
             // dtFrom
-            //
+            // 
             dtFrom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtFrom.Checked = true;
             dtFrom.CustomizableEdges = customizableEdges6;
@@ -210,9 +210,9 @@ namespace POS.Forms.Reports
             dtFrom.TabIndex = 12;
             dtFrom.Value = new DateTime(2026, 3, 18, 1, 13, 30, 668);
             dtFrom.ValueChanged += dtFrom_ValueChanged;
-            //
+            // 
             // dgvTransactions
-            //
+            // 
             dgvTransactions.AllowUserToAddRows = false;
             dgvTransactions.AllowUserToDeleteRows = false;
             dgvTransactions.AllowUserToResizeColumns = false;
@@ -244,7 +244,7 @@ namespace POS.Forms.Reports
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvTransactions.DefaultCellStyle = dataGridViewCellStyle3;
             dgvTransactions.GridColor = Color.FromArgb(231, 229, 255);
-            dgvTransactions.Location = new Point(12, 145);
+            dgvTransactions.Location = new Point(12, 101);
             dgvTransactions.Name = "dgvTransactions";
             dgvTransactions.ReadOnly = true;
             dgvTransactions.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -258,7 +258,7 @@ namespace POS.Forms.Reports
             dgvTransactions.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvTransactions.RowHeadersVisible = false;
             dgvTransactions.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgvTransactions.Size = new Size(925, 393);
+            dgvTransactions.Size = new Size(925, 437);
             dgvTransactions.TabIndex = 11;
             dgvTransactions.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dgvTransactions.ThemeStyle.AlternatingRowsStyle.Font = new Font("Segoe UI", 9F);
@@ -281,9 +281,9 @@ namespace POS.Forms.Reports
             dgvTransactions.ThemeStyle.RowsStyle.Height = 25;
             dgvTransactions.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             dgvTransactions.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            //
+            // 
             // txtSearch
-            //
+            // 
             txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSearch.BorderRadius = 5;
             txtSearch.CustomizableEdges = customizableEdges8;
@@ -307,9 +307,9 @@ namespace POS.Forms.Reports
             txtSearch.Size = new Size(256, 39);
             txtSearch.TabIndex = 10;
             txtSearch.TextChanged += txtSearch_TextChanged;
-            //
+            // 
             // lblClose
-            //
+            // 
             lblClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblClose.BackColor = Color.Transparent;
             lblClose.Font = new Font("Courier New", 9F);
@@ -319,14 +319,14 @@ namespace POS.Forms.Reports
             lblClose.Size = new Size(80, 17);
             lblClose.TabIndex = 9;
             lblClose.Text = "[Esc] Close";
-            //
+            // 
             // guna2HtmlToolTip1
-            //
+            // 
             guna2HtmlToolTip1.AllowLinksHandling = true;
             guna2HtmlToolTip1.MaximumSize = new Size(0, 0);
-            //
+            // 
             // Transactions
-            //
+            // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(951, 554);
