@@ -43,8 +43,14 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Transactions));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
+            btnPrint = new Guna.UI2.WinForms.Guna2Button();
+            btnExport = new Guna.UI2.WinForms.Guna2Button();
             btnClearFilter = new Guna.UI2.WinForms.Guna2ImageButton();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -66,6 +72,8 @@
             // 
             // guna2GroupBox1
             // 
+            guna2GroupBox1.Controls.Add(btnPrint);
+            guna2GroupBox1.Controls.Add(btnExport);
             guna2GroupBox1.Controls.Add(btnClearFilter);
             guna2GroupBox1.Controls.Add(guna2HtmlLabel1);
             guna2GroupBox1.Controls.Add(guna2HtmlLabel2);
@@ -104,7 +112,53 @@
             btnClearFilter.TabIndex = 16;
             guna2HtmlToolTip1.SetToolTip(btnClearFilter, "Clear Filter");
             btnClearFilter.Click += btnClearFilter_Click;
-            // 
+            //
+            // btnPrint
+            //
+            btnPrint.BorderRadius = 5;
+            btnPrint.Cursor = Cursors.Hand;
+            btnPrint.CustomizableEdges = customizableEdges10;
+            btnPrint.DisabledState.BorderColor = Color.DarkGray;
+            btnPrint.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnPrint.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnPrint.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnPrint.FillColor = Color.FromArgb(26, 26, 29);
+            btnPrint.Font = new Font("Courier New", 9F);
+            btnPrint.ForeColor = Color.White;
+            btnPrint.HoverState.FillColor = Color.FromArgb(46, 46, 52);
+            btnPrint.HoverState.ForeColor = Color.White;
+            btnPrint.Location = new Point(12, 101);
+            btnPrint.Name = "btnPrint";
+            btnPrint.ShadowDecoration.CustomizableEdges = customizableEdges11;
+            btnPrint.Size = new Size(110, 35);
+            btnPrint.TabIndex = 17;
+            btnPrint.Text = "Print Report";
+            guna2HtmlToolTip1.SetToolTip(btnPrint, "Print all visible transactions");
+            btnPrint.Click += btnPrint_Click;
+            //
+            // btnExport
+            //
+            btnExport.BorderRadius = 5;
+            btnExport.Cursor = Cursors.Hand;
+            btnExport.CustomizableEdges = customizableEdges12;
+            btnExport.DisabledState.BorderColor = Color.DarkGray;
+            btnExport.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnExport.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnExport.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnExport.FillColor = Color.FromArgb(34, 139, 34);
+            btnExport.Font = new Font("Courier New", 9F);
+            btnExport.ForeColor = Color.White;
+            btnExport.HoverState.FillColor = Color.FromArgb(0, 100, 0);
+            btnExport.HoverState.ForeColor = Color.White;
+            btnExport.Location = new Point(130, 101);
+            btnExport.Name = "btnExport";
+            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges13;
+            btnExport.Size = new Size(130, 35);
+            btnExport.TabIndex = 18;
+            btnExport.Text = "Export to Excel";
+            guna2HtmlToolTip1.SetToolTip(btnExport, "Export visible transactions to Excel");
+            btnExport.Click += btnExport_Click;
+            //
             // guna2HtmlLabel1
             // 
             guna2HtmlLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -200,7 +254,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvTransactions.DefaultCellStyle = dataGridViewCellStyle3;
             dgvTransactions.GridColor = Color.FromArgb(231, 229, 255);
-            dgvTransactions.Location = new Point(12, 101);
+            dgvTransactions.Location = new Point(12, 145);
             dgvTransactions.Name = "dgvTransactions";
             dgvTransactions.ReadOnly = true;
             dgvTransactions.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -214,7 +268,7 @@
             dgvTransactions.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvTransactions.RowHeadersVisible = false;
             dgvTransactions.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgvTransactions.Size = new Size(925, 437);
+            dgvTransactions.Size = new Size(925, 393);
             dgvTransactions.TabIndex = 11;
             dgvTransactions.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dgvTransactions.ThemeStyle.AlternatingRowsStyle.Font = new Font("Segoe UI", 9F);
@@ -312,5 +366,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2ImageButton btnClearFilter;
         private Guna.UI2.WinForms.Guna2HtmlToolTip guna2HtmlToolTip1;
+        private Guna.UI2.WinForms.Guna2Button btnPrint;
+        private Guna.UI2.WinForms.Guna2Button btnExport;
     }
 }
