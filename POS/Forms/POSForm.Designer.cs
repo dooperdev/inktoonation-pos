@@ -322,7 +322,7 @@
             txtSearch.PlaceholderText = "Please enter user name";
             txtSearch.SelectedText = "";
             txtSearch.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            txtSearch.Size = new Size(705, 39);
+            txtSearch.Size = new Size(674, 39);
             txtSearch.TabIndex = 12;
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
@@ -338,7 +338,7 @@
             guna2Panel2.Location = new Point(86, 137);
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            guna2Panel2.Size = new Size(705, 578);
+            guna2Panel2.Size = new Size(674, 578);
             guna2Panel2.TabIndex = 1;
             // 
             // flowProducts
@@ -346,7 +346,7 @@
             flowProducts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             flowProducts.Location = new Point(14, 16);
             flowProducts.Name = "flowProducts";
-            flowProducts.Size = new Size(678, 548);
+            flowProducts.Size = new Size(647, 548);
             flowProducts.TabIndex = 0;
             // 
             // guna2Panel1
@@ -362,10 +362,10 @@
             guna2Panel1.Controls.Add(flowCart);
             guna2Panel1.CustomizableEdges = customizableEdges25;
             guna2Panel1.FillColor = Color.White;
-            guna2Panel1.Location = new Point(797, 52);
+            guna2Panel1.Location = new Point(767, 52);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            guna2Panel1.Size = new Size(317, 663);
+            guna2Panel1.Size = new Size(347, 663);
             guna2Panel1.TabIndex = 0;
             // 
             // guna2HtmlLabel5
@@ -397,7 +397,7 @@
             btnTenders.Location = new Point(23, 594);
             btnTenders.Name = "btnTenders";
             btnTenders.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            btnTenders.Size = new Size(278, 55);
+            btnTenders.Size = new Size(308, 55);
             btnTenders.TabIndex = 7;
             btnTenders.Text = "Tenders";
             btnTenders.Click += btnTenders_Click;
@@ -420,7 +420,7 @@
             guna2Panel3.Location = new Point(23, 460);
             guna2Panel3.Name = "guna2Panel3";
             guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges24;
-            guna2Panel3.Size = new Size(278, 128);
+            guna2Panel3.Size = new Size(308, 128);
             guna2Panel3.TabIndex = 0;
             // 
             // lblCustomerName
@@ -501,7 +501,7 @@
             flowCart.BackColor = Color.White;
             flowCart.Location = new Point(23, 59);
             flowCart.Name = "flowCart";
-            flowCart.Size = new Size(278, 395);
+            flowCart.Size = new Size(308, 395);
             flowCart.TabIndex = 1;
             // 
             // guna2HtmlToolTip1

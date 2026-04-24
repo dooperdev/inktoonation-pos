@@ -1,4 +1,5 @@
-﻿using POS.Forms.Helper;
+﻿using ClosedXML.Excel;
+using POS.Forms.Helper;
 using POS.Repository;
 using System;
 using System.Collections.Generic;
@@ -106,15 +107,14 @@ namespace POS.Forms.Reports
             viewCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dgvTransactions.Columns.Add(viewCol);
 
-            // PRINT BUTTON (fixed size)
-            DataGridViewButtonColumn printCol = new DataGridViewButtonColumn();
+            // PRINT BUTTON (image icon)
+            DataGridViewImageColumn printCol = new DataGridViewImageColumn();
             printCol.Name = "PrintReceipt";
             printCol.HeaderText = "";
-            printCol.Text = "Print";
-            printCol.UseColumnTextForButtonValue = true;
-            printCol.Width = 55;
+            printCol.Image = Properties.Resources.printer;
+            printCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            printCol.Width = 40;
             printCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            printCol.FlatStyle = FlatStyle.Flat;
             dgvTransactions.Columns.Add(printCol);
 
             dgvTransactions.RowTemplate.Height = 25;
@@ -172,18 +172,8 @@ namespace POS.Forms.Reports
         private void DgvTransactions_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            if (dgvTransactions.Columns[e.ColumnIndex].Name != "PrintReceipt") return;
 
-            // PIN auth required for non-admin users
-            var userRepo = new UserRepository();
-            var currentUser = userRepo.GetUserById(_currentUserId);
-
-            if (currentUser?.Role != "Admin")
-            {
-                using var pinForm = new PinForm();
-                if (pinForm.ShowDialog() != DialogResult.OK || !pinForm.IsAuthorized)
-                    return;
-            }
+            string colName = dgvTransactions.Columns[e.ColumnIndex].Name;
 
             var row = dgvTransactions.Rows[e.RowIndex];
             int transactionId = Convert.ToInt32(row.Cells["TransactionID"].Value);
@@ -194,7 +184,18 @@ namespace POS.Forms.Reports
             string paymentType = row.Cells["PaymentType"].Value?.ToString() ?? "";
             DateTime transactionDate = Convert.ToDateTime(row.Cells["TransactionDate"].Value);
 
-            PrintTransactionReceipt(transactionId, transactionNumber, cashier, customer, totalAmount, paymentType, transactionDate);
+            if (colName == "View")
+            {
+                using var viewForm = new ViewSaleForm(transactionId, transactionNumber, cashier, customer, totalAmount, paymentType, transactionDate);
+                viewForm.ShowDialog();
+                return;
+            }
+
+            if (colName == "PrintReceipt")
+            {
+                if (!AuthorizeAction()) return;
+                PrintTransactionReceipt(transactionId, transactionNumber, cashier, customer, totalAmount, paymentType, transactionDate);
+            }
         }
 
         private void PrintTransactionReceipt(int transactionId, string transactionNumber, string cashier,
@@ -321,6 +322,239 @@ namespace POS.Forms.Reports
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to save PDF: " + ex.Message);
+            }
+        }
+
+        private List<POS.Models.Transactions> GetFilteredData()
+        {
+            DateTime fromDate = dtFrom.Value.Date;
+            DateTime toDate = dtTo.Value.Date.AddDays(1).AddSeconds(-1);
+            string search = txtSearch.Text.Trim();
+            return _transactionRepo.GetFiltered(fromDate, toDate, search);
+        }
+
+        private bool AuthorizeAction()
+        {
+            var userRepo = new UserRepository();
+            var currentUser = userRepo.GetUserById(_currentUserId);
+            if (currentUser?.Role == "Admin") return true;
+
+            using var pinForm = new PinForm();
+            return pinForm.ShowDialog() == DialogResult.OK && pinForm.IsAuthorized;
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (!AuthorizeAction()) return;
+
+            var data = GetFilteredData();
+            if (data.Count == 0)
+            {
+                MessageBox.Show("No transactions to print.", "Print", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            PrintTransactionReport(data);
+        }
+
+        private void PrintTransactionReport(List<POS.Models.Transactions> data)
+        {
+            CultureInfo phCulture = new CultureInfo("en-PH");
+
+            // Column definitions: header text and width in pixels
+            string[] colHeaders = { "ID", "Transaction #", "Cashier", "Customer", "Items", "Total", "Payment", "Date" };
+            int[] colWidths = { 45, 160, 135, 135, 50, 95, 90, 155 };
+
+            int rowIndex = 0; // captured by lambda for pagination
+
+            PrintDocument pd = new PrintDocument();
+            pd.DefaultPageSettings.Landscape = true;
+
+            pd.PrintPage += (s, e) =>
+            {
+                Graphics g = e.Graphics;
+                int left = e.MarginBounds.Left;
+                int top = e.MarginBounds.Top;
+                int right = e.MarginBounds.Right;
+                int bottom = e.MarginBounds.Bottom;
+
+                Font titleFont = new Font("Arial", 13, FontStyle.Bold);
+                Font subFont = new Font("Arial", 9);
+                Font boldFont = new Font("Courier New", 8, FontStyle.Bold);
+                Font cellFont = new Font("Courier New", 8);
+                float yPos = top;
+                int rowHeight = 18;
+
+                // Page header — only on the first page
+                if (rowIndex == 0)
+                {
+                    g.DrawString("Ink Toonations Printing Services", titleFont, Brushes.Black, left, yPos);
+                    yPos += 22;
+                    g.DrawString("Transaction Report", subFont, Brushes.Black, left, yPos);
+                    yPos += 16;
+                    g.DrawString($"Date Range: {dtFrom.Value:MM/dd/yyyy} — {dtTo.Value:MM/dd/yyyy}", subFont, Brushes.Black, left, yPos);
+                    yPos += 16;
+                    g.DrawString($"Printed: {DateTime.Now:MM/dd/yyyy hh:mm tt}   Total Transactions: {data.Count}", subFont, Brushes.Black, left, yPos);
+                    yPos += 20;
+                }
+
+                // Column header row
+                g.FillRectangle(new SolidBrush(Color.FromArgb(100, 88, 255)), left, yPos, right - left, rowHeight + 2);
+                int xPos = left;
+                for (int i = 0; i < colHeaders.Length; i++)
+                {
+                    g.DrawString(colHeaders[i], boldFont, Brushes.White, xPos + 3, yPos + 3);
+                    xPos += colWidths[i];
+                }
+                yPos += rowHeight + 4;
+
+                // Data rows
+                bool alternate = false;
+                while (rowIndex < data.Count)
+                {
+                    if (yPos + rowHeight > bottom - 25) // leave room for footer
+                    {
+                        e.HasMorePages = true;
+                        break;
+                    }
+
+                    var t = data[rowIndex];
+
+                    if (alternate)
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(245, 245, 252)), left, yPos, right - left, rowHeight);
+
+                    xPos = left;
+                    g.DrawString(t.TransactionID.ToString(), cellFont, Brushes.Black, xPos + 3, yPos + 2); xPos += colWidths[0];
+                    g.DrawString(t.TransactionNumber, cellFont, Brushes.Black, xPos + 3, yPos + 2); xPos += colWidths[1];
+                    g.DrawString(t.UserName, cellFont, Brushes.Black, xPos + 3, yPos + 2); xPos += colWidths[2];
+                    g.DrawString(t.CustomerName, cellFont, Brushes.Black, xPos + 3, yPos + 2); xPos += colWidths[3];
+                    g.DrawString(t.TotalItems.ToString(), cellFont, Brushes.Black, xPos + 3, yPos + 2); xPos += colWidths[4];
+                    g.DrawString(t.TotalAmount.ToString("C", phCulture), cellFont, Brushes.Black, xPos + 3, yPos + 2); xPos += colWidths[5];
+                    g.DrawString(t.PaymentType, cellFont, Brushes.Black, xPos + 3, yPos + 2); xPos += colWidths[6];
+                    g.DrawString(t.TransactionDate.ToString("MM/dd/yyyy hh:mm tt"), cellFont, Brushes.Black, xPos + 3, yPos + 2);
+
+                    yPos += rowHeight;
+                    alternate = !alternate;
+                    rowIndex++;
+                }
+
+                // Grand total — only on the last page
+                if (rowIndex >= data.Count)
+                {
+                    yPos += 5;
+                    g.DrawLine(Pens.Black, left, yPos, right, yPos);
+                    yPos += 5;
+                    double grandTotal = data.Sum(t => t.TotalAmount);
+                    g.DrawString($"Grand Total: {grandTotal.ToString("C", phCulture)}", boldFont, Brushes.Black, left, yPos);
+                }
+            };
+
+            using var preview = new PrintPreviewDialog();
+            preview.Document = pd;
+            preview.WindowState = FormWindowState.Maximized;
+            preview.ShowDialog();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (!AuthorizeAction()) return;
+
+            var data = GetFilteredData();
+            if (data.Count == 0)
+            {
+                MessageBox.Show("No transactions to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            ExportToExcel(data);
+        }
+
+        private void ExportToExcel(List<POS.Models.Transactions> data)
+        {
+            try
+            {
+                using var sfd = new SaveFileDialog();
+                sfd.Filter = "Excel Files|*.xlsx";
+                sfd.FileName = $"Transactions_{dtFrom.Value:MMddyyyy}_{dtTo.Value:MMddyyyy}.xlsx";
+
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                CultureInfo phCulture = new CultureInfo("en-PH");
+
+                using var wb = new XLWorkbook();
+                var ws = wb.Worksheets.Add("Transactions");
+
+                // Report title block
+                ws.Cell(1, 1).Value = "Ink Toonations Printing Services — Transaction Report";
+                ws.Cell(1, 1).Style.Font.Bold = true;
+                ws.Cell(1, 1).Style.Font.FontSize = 13;
+                ws.Range(1, 1, 1, 8).Merge();
+
+                ws.Cell(2, 1).Value = $"Date Range: {dtFrom.Value:MM/dd/yyyy} — {dtTo.Value:MM/dd/yyyy}";
+                ws.Range(2, 1, 2, 8).Merge();
+
+                ws.Cell(3, 1).Value = $"Exported: {DateTime.Now:MM/dd/yyyy hh:mm tt}   Total Transactions: {data.Count}";
+                ws.Range(3, 1, 3, 8).Merge();
+
+                // Column headers (row 5)
+                int headerRow = 5;
+                ws.Cell(headerRow, 1).Value = "ID";
+                ws.Cell(headerRow, 2).Value = "Transaction #";
+                ws.Cell(headerRow, 3).Value = "Cashier";
+                ws.Cell(headerRow, 4).Value = "Customer";
+                ws.Cell(headerRow, 5).Value = "Items";
+                ws.Cell(headerRow, 6).Value = "Total";
+                ws.Cell(headerRow, 7).Value = "Payment";
+                ws.Cell(headerRow, 8).Value = "Date";
+
+                var hdrRange = ws.Range(headerRow, 1, headerRow, 8);
+                hdrRange.Style.Font.Bold = true;
+                hdrRange.Style.Fill.BackgroundColor = XLColor.FromArgb(100, 88, 255);
+                hdrRange.Style.Font.FontColor = XLColor.White;
+                hdrRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                // Data rows
+                double grandTotal = 0;
+                for (int i = 0; i < data.Count; i++)
+                {
+                    var t = data[i];
+                    int row = headerRow + 1 + i;
+
+                    ws.Cell(row, 1).Value = t.TransactionID;
+                    ws.Cell(row, 2).Value = t.TransactionNumber;
+                    ws.Cell(row, 3).Value = t.UserName;
+                    ws.Cell(row, 4).Value = t.CustomerName;
+                    ws.Cell(row, 5).Value = t.TotalItems;
+                    ws.Cell(row, 6).Value = t.TotalAmount;
+                    ws.Cell(row, 6).Style.NumberFormat.Format = "₱#,##0.00";
+                    ws.Cell(row, 7).Value = t.PaymentType;
+                    ws.Cell(row, 8).Value = t.TransactionDate.ToString("MM/dd/yyyy hh:mm tt");
+
+                    // Alternate row shading
+                    if (i % 2 == 1)
+                        ws.Range(row, 1, row, 8).Style.Fill.BackgroundColor = XLColor.FromArgb(245, 245, 252);
+
+                    grandTotal += t.TotalAmount;
+                }
+
+                // Grand total row
+                int totalRow = headerRow + 1 + data.Count + 1;
+                ws.Cell(totalRow, 5).Value = "Grand Total:";
+                ws.Cell(totalRow, 5).Style.Font.Bold = true;
+                ws.Cell(totalRow, 6).Value = grandTotal;
+                ws.Cell(totalRow, 6).Style.Font.Bold = true;
+                ws.Cell(totalRow, 6).Style.NumberFormat.Format = "₱#,##0.00";
+
+                ws.Columns().AdjustToContents();
+
+                wb.SaveAs(sfd.FileName);
+
+                MessageBox.Show($"Exported successfully:\n{sfd.FileName}", "Export Complete",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Export failed: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
