@@ -35,6 +35,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PinForm));
             guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             btnContinue = new Guna.UI2.WinForms.Guna2Button();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -140,7 +141,9 @@
             ClientSize = new Size(438, 199);
             Controls.Add(guna2GroupBox1);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "PinForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PinForm";
             guna2GroupBox1.ResumeLayout(false);
             guna2GroupBox1.PerformLayout();
