@@ -228,13 +228,8 @@ namespace POS.Forms.Reports
                 Font font = new Font("Arial", 8);
                 Font boldFont = new Font("Arial", 9, FontStyle.Bold);
 
-                // Header
-                g.DrawString("Ink Toonations Printing Services", boldFont, Brushes.Black, leftMargin, yPos);
-                yPos += 20;
-                g.DrawString("Address Line", font, Brushes.Black, leftMargin, yPos);
-                yPos += 15;
-                g.DrawString("Contact: 09123456789", font, Brushes.Black, leftMargin, yPos);
-                yPos += 25;
+                // Company header with logo
+                yPos = POS.Helpers.PrintHelper.DrawReceiptHeader(g, yPos, leftMargin, rightMargin);
 
                 // Transaction Info
                 g.DrawString($"Transaction #: {transactionNumber}", font, Brushes.Black, leftMargin, yPos);
@@ -378,7 +373,6 @@ namespace POS.Forms.Reports
                 int right = e.MarginBounds.Right;
                 int bottom = e.MarginBounds.Bottom;
 
-                Font titleFont = new Font("Arial", 13, FontStyle.Bold);
                 Font subFont = new Font("Arial", 9);
                 Font boldFont = new Font("Courier New", 8, FontStyle.Bold);
                 Font cellFont = new Font("Courier New", 8);
@@ -388,14 +382,15 @@ namespace POS.Forms.Reports
                 // Page header — only on the first page
                 if (rowIndex == 0)
                 {
-                    g.DrawString("Ink Toonations Printing Services", titleFont, Brushes.Black, left, yPos);
-                    yPos += 22;
+                    yPos = POS.Helpers.PrintHelper.DrawReportHeader(g, yPos, left, right);
+                    g.DrawLine(Pens.LightGray, left, yPos, right, yPos);
+                    yPos += 6;
                     g.DrawString("Transaction Report", subFont, Brushes.Black, left, yPos);
-                    yPos += 16;
+                    yPos += 15;
                     g.DrawString($"Date Range: {dtFrom.Value:MM/dd/yyyy} — {dtTo.Value:MM/dd/yyyy}", subFont, Brushes.Black, left, yPos);
-                    yPos += 16;
+                    yPos += 15;
                     g.DrawString($"Printed: {DateTime.Now:MM/dd/yyyy hh:mm tt}   Total Transactions: {data.Count}", subFont, Brushes.Black, left, yPos);
-                    yPos += 20;
+                    yPos += 16;
                 }
 
                 // Column header row
