@@ -145,13 +145,8 @@ namespace POS.Forms
                 Font font = new Font("Arial", 8);
                 Font boldFont = new Font("Arial", 9, FontStyle.Bold);
 
-                // Header
-                g.DrawString("Ink Toonations Printing Services", boldFont, Brushes.Black, leftMargin, yPos);
-                yPos += 20;
-                g.DrawString("Address Line", font, Brushes.Black, leftMargin, yPos);
-                yPos += 15;
-                g.DrawString("Contact: 09123456789", font, Brushes.Black, leftMargin, yPos);
-                yPos += 25;
+                // Company header with logo
+                yPos = POS.Helpers.PrintHelper.DrawReceiptHeader(g, yPos, leftMargin, rightMargin);
 
                 // Transaction Info
                 g.DrawString($"Transaction #: {TransactionNumber}", font, Brushes.Black, leftMargin, yPos);
