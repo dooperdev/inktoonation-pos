@@ -479,20 +479,55 @@ namespace POS.Forms.Reports
                 using var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Transactions");
 
-                // Report title block
-                ws.Cell(1, 1).Value = "Ink Toonations Printing Services — Transaction Report";
-                ws.Cell(1, 1).Style.Font.Bold = true;
-                ws.Cell(1, 1).Style.Font.FontSize = 13;
-                ws.Range(1, 1, 1, 8).Merge();
+                // Logo in cols A-B, rows 1-4
+                try
+                {
+                    var logo = Properties.Resources.logo;
+                    if (logo != null)
+                    {
+                        using var ms = new System.IO.MemoryStream();
+                        logo.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        ms.Position = 0;
+                        ws.AddPicture(ms)
+                          .MoveTo(ws.Cell(1, 1))
+                          .WithSize(100, 100);
+                        ws.Row(1).Height = 25;
+                        ws.Row(2).Height = 25;
+                        ws.Row(3).Height = 25;
+                        ws.Row(4).Height = 25;
+                    }
+                }
+                catch { }
 
-                ws.Cell(2, 1).Value = $"Date Range: {dtFrom.Value:MM/dd/yyyy} — {dtTo.Value:MM/dd/yyyy}";
-                ws.Range(2, 1, 2, 8).Merge();
+                // Company info in cols C-H, rows 1-4
+                ws.Cell(1, 3).Value = "Ink Toonations Printing Services";
+                ws.Cell(1, 3).Style.Font.Bold = true;
+                ws.Cell(1, 3).Style.Font.FontSize = 14;
+                ws.Range(1, 3, 1, 8).Merge();
 
-                ws.Cell(3, 1).Value = $"Exported: {DateTime.Now:MM/dd/yyyy hh:mm tt}   Total Transactions: {data.Count}";
-                ws.Range(3, 1, 3, 8).Merge();
+                ws.Cell(2, 3).Value = "TIN: 323-823-173-00000";
+                ws.Range(2, 3, 2, 8).Merge();
 
-                // Column headers (row 5)
-                int headerRow = 5;
+                ws.Cell(3, 3).Value = "Address: Blk 33 Lot 15 ph6 Mabuhay City, Mamatid Cabuyao Laguna";
+                ws.Range(3, 3, 3, 8).Merge();
+
+                ws.Cell(4, 3).Value = "Contact: 09558358947";
+                ws.Range(4, 3, 4, 8).Merge();
+
+                // Report info block (rows 6-8)
+                ws.Cell(6, 1).Value = "Transaction Report";
+                ws.Cell(6, 1).Style.Font.Bold = true;
+                ws.Cell(6, 1).Style.Font.FontSize = 12;
+                ws.Range(6, 1, 6, 8).Merge();
+
+                ws.Cell(7, 1).Value = $"Date Range: {dtFrom.Value:MM/dd/yyyy} — {dtTo.Value:MM/dd/yyyy}";
+                ws.Range(7, 1, 7, 8).Merge();
+
+                ws.Cell(8, 1).Value = $"Exported: {DateTime.Now:MM/dd/yyyy hh:mm tt}   Total Transactions: {data.Count}";
+                ws.Range(8, 1, 8, 8).Merge();
+
+                // Column headers (row 10)
+                int headerRow = 10;
                 ws.Cell(headerRow, 1).Value = "ID";
                 ws.Cell(headerRow, 2).Value = "Transaction #";
                 ws.Cell(headerRow, 3).Value = "Cashier";
@@ -525,7 +560,6 @@ namespace POS.Forms.Reports
                     ws.Cell(row, 7).Value = t.PaymentType;
                     ws.Cell(row, 8).Value = t.TransactionDate.ToString("MM/dd/yyyy hh:mm tt");
 
-                    // Alternate row shading
                     if (i % 2 == 1)
                         ws.Range(row, 1, row, 8).Style.Fill.BackgroundColor = XLColor.FromArgb(245, 245, 252);
 
