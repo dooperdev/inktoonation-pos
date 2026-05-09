@@ -23,7 +23,7 @@ namespace POS.Helpers
                 var logo = Properties.Resources.logo;
                 if (logo != null)
                 {
-                    int logoSize = 48;
+                    int logoSize = 90;
                     int logoX = (rightMargin - leftMargin - logoSize) / 2 + leftMargin;
                     g.DrawImage(logo, logoX, yPos, logoSize, logoSize);
                     yPos += logoSize + 4;
@@ -48,7 +48,7 @@ namespace POS.Helpers
             Font titleFont = new Font("Arial", 13, FontStyle.Bold);
             Font infoFont = new Font("Arial", 9);
 
-            int logoSize = 60;
+            int logoSize = 110;
             int textLeft = leftMargin;
             float textY = yPos;
             bool drewLogo = false;
